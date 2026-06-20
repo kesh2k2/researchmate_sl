@@ -354,6 +354,81 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+# ==========================================================
+# DARK MODE DROPDOWN / FILE UPLOADER TEXT VISIBILITY ONLY
+# ==========================================================
+st.markdown("""
+<style>
+/* This patch only improves visibility of Streamlit dropdowns/multiselects/file uploader
+   on devices/browsers using dark mode. App functions/features are unchanged. */
+@media (prefers-color-scheme: dark) {
+    /* Selectbox + Multiselect closed input area */
+    [data-baseweb="select"] *,
+    [data-baseweb="select"] input,
+    [data-baseweb="select"] span,
+    [data-baseweb="select"] div {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+
+    /* Placeholder text inside dropdowns */
+    [data-baseweb="select"] input::placeholder,
+    [data-baseweb="base-input"] input::placeholder {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        opacity: 1 !important;
+    }
+
+    /* Dropdown menu / options */
+    [data-baseweb="popover"] *,
+    [data-baseweb="menu"] *,
+    div[role="listbox"] *,
+    ul[role="listbox"] *,
+    div[role="option"] *,
+    li[role="option"] * {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+
+    /* Multiselect selected tags */
+    [data-baseweb="tag"] *,
+    [data-baseweb="tag"] span {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+
+    /* Dropdown arrow icons */
+    [data-baseweb="select"] svg,
+    [data-baseweb="icon"] svg,
+    .stSelectbox svg,
+    .stMultiSelect svg {
+        fill: #ffffff !important;
+        color: #ffffff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* File uploader */
+    [data-testid="stFileUploader"] *,
+    [data-testid="stFileUploader"] label,
+    [data-testid="stFileUploader"] span,
+    [data-testid="stFileUploader"] div,
+    [data-testid="stFileUploader"] small {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+
+    /* Browse files button text */
+    [data-testid="stFileUploader"] button,
+    [data-testid="stFileUploader"] button * {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 
 # ==========================================================
 # SESSION STATE
