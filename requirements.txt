@@ -5,3 +5,4 @@ scipy
 statsmodels
 pingouin
 openpyxl
+plotly
