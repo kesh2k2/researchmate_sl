@@ -8,6 +8,7 @@ from datetime import datetime
 
 import pingouin as pg
 import plotly.express as px
+px.defaults.template = "plotly_white"
 import statsmodels.api as sm
 
 from scipy import stats
@@ -100,6 +101,258 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+
+# ==========================================================
+# DARK MODE + MOBILE VISIBILITY FIX
+# ==========================================================
+st.markdown("""
+<style>
+    /* Force app to stay readable even when phone/browser is in dark mode */
+    .stApp,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stHeader"],
+    [data-testid="stToolbar"],
+    .main,
+    .block-container {
+        background-color: #f8fbff !important;
+        color: #0f172a !important;
+    }
+
+    /* Main text visibility */
+    h1, h2, h3, h4, h5, h6,
+    p, span, label, div,
+    .stMarkdown,
+    .stText,
+    .stCaption,
+    .stWrite {
+        color: #0f172a !important;
+    }
+
+    /* Your custom boxes */
+    .main-title {
+        color: #0f172a !important;
+    }
+
+    .sub-title {
+        color: #334155 !important;
+    }
+
+    .dev-badge {
+        background: linear-gradient(90deg, #eff6ff, #ecfdf5) !important;
+        border: 1px solid #bfdbfe !important;
+        color: #0f172a !important;
+    }
+
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #dbeafe !important;
+        color: #0f172a !important;
+    }
+
+    .card h3,
+    .card h4,
+    .card p {
+        color: #0f172a !important;
+    }
+
+    .step-box {
+        background: #eff6ff !important;
+        border-left: 5px solid #38bdf8 !important;
+        color: #0f172a !important;
+    }
+
+    .warning-box {
+        background: #fff7ed !important;
+        border-left: 5px solid #f59e0b !important;
+        color: #0f172a !important;
+    }
+
+    .success-box {
+        background: #ecfdf5 !important;
+        border-left: 5px solid #10b981 !important;
+        color: #0f172a !important;
+    }
+
+    .small-muted {
+        color: #475569 !important;
+    }
+
+    /* Sidebar visibility */
+    [data-testid="stSidebar"] {
+        background-color: #e0f2fe !important;
+        color: #0f172a !important;
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #0f172a !important;
+    }
+
+    /* Inputs, multiselects, selectboxes, uploader */
+    input,
+    textarea,
+    select,
+    [data-baseweb="select"],
+    [data-baseweb="base-input"],
+    [data-baseweb="tag"],
+    [data-testid="stFileUploader"],
+    [data-testid="stTextInput"],
+    [data-testid="stSelectbox"],
+    [data-testid="stMultiSelect"],
+    [data-testid="stNumberInput"] {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    [data-baseweb="tag"] {
+        background-color: #bbf7d0 !important;
+        color: #064e3b !important;
+    }
+
+    /* Buttons */
+    div.stButton > button:first-child,
+    .stDownloadButton > button {
+        background-color: #38bdf8 !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    div.stButton > button:first-child:hover,
+    .stDownloadButton > button:hover {
+        background-color: #0ea5e9 !important;
+        color: #ffffff !important;
+    }
+
+    /* Metrics */
+    [data-testid="stMetric"] {
+        background-color: #ffffff !important;
+        border: 1px solid #dbeafe !important;
+        border-radius: 14px !important;
+        padding: 12px !important;
+        color: #0f172a !important;
+    }
+
+    [data-testid="stMetric"] * {
+        color: #0f172a !important;
+    }
+
+    /* Alerts */
+    [data-testid="stAlert"] {
+        color: #0f172a !important;
+    }
+
+    [data-testid="stAlert"] * {
+        color: #0f172a !important;
+    }
+
+    /* Tables/dataframes */
+    [data-testid="stDataFrame"],
+    [data-testid="stTable"] {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    /* Expander */
+    [data-testid="stExpander"] {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border: 1px solid #dbeafe !important;
+        border-radius: 12px !important;
+    }
+
+    [data-testid="stExpander"] * {
+        color: #0f172a !important;
+    }
+
+    /* Plotly chart container */
+    .js-plotly-plot,
+    .plot-container,
+    .svg-container {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    /* Mobile optimization */
+    @media screen and (max-width: 768px) {
+        .block-container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            padding-top: 1rem !important;
+        }
+
+        .main-title {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+        }
+
+        .sub-title {
+            font-size: 0.9rem !important;
+        }
+
+        .dev-badge,
+        .card,
+        .step-box,
+        .warning-box,
+        .success-box {
+            padding: 0.85rem !important;
+            border-radius: 0.75rem !important;
+        }
+
+        h1 {
+            font-size: 1.55rem !important;
+        }
+
+        h2 {
+            font-size: 1.35rem !important;
+        }
+
+        h3 {
+            font-size: 1.15rem !important;
+        }
+
+        p, span, label, div {
+            font-size: 0.92rem !important;
+        }
+
+        [data-testid="stMetric"] {
+            padding: 0.8rem !important;
+        }
+
+        div.stButton > button:first-child,
+        .stDownloadButton > button {
+            width: 100% !important;
+        }
+    }
+
+    /* Explicit dark mode override */
+    @media (prefers-color-scheme: dark) {
+        .stApp,
+        [data-testid="stAppViewContainer"],
+        .main,
+        .block-container {
+            background-color: #f8fbff !important;
+            color: #0f172a !important;
+        }
+
+        .card,
+        .step-box,
+        .dev-badge,
+        [data-testid="stExpander"],
+        [data-testid="stMetric"] {
+            color: #0f172a !important;
+        }
+
+        .card *,
+        .step-box *,
+        .dev-badge *,
+        [data-testid="stExpander"] *,
+        [data-testid="stMetric"] * {
+            color: #0f172a !important;
+        }
+    }
+</style>
+""", unsafe_allow_html=True)
+
 
 
 # ==========================================================
