@@ -102,34 +102,30 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 # ==========================================================
-# DARK MODE + MOBILE VISIBILITY FIX
+# MOBILE DARK MODE VISIBILITY FIX - FEATURES UNCHANGED
 # ==========================================================
 st.markdown("""
 <style>
-    /* Force app to stay readable even when phone/browser is in dark mode */
+    /* Keep the app readable on mobile browsers using dark mode */
     .stApp,
     [data-testid="stAppViewContainer"],
-    [data-testid="stHeader"],
-    [data-testid="stToolbar"],
     .main,
     .block-container {
         background-color: #f8fbff !important;
         color: #0f172a !important;
     }
 
-    /* Main text visibility */
+    /* General text */
     h1, h2, h3, h4, h5, h6,
     p, span, label, div,
     .stMarkdown,
     .stText,
-    .stCaption,
-    .stWrite {
+    .stCaption {
         color: #0f172a !important;
     }
 
-    /* Your custom boxes */
+    /* Custom boxes */
     .main-title {
         color: #0f172a !important;
     }
@@ -144,33 +140,38 @@ st.markdown("""
         color: #0f172a !important;
     }
 
-    .card {
-        background: #ffffff !important;
-        border: 1px solid #dbeafe !important;
+    .card,
+    .step-box,
+    .warning-box,
+    .success-box {
         color: #0f172a !important;
     }
 
-    .card h3,
-    .card h4,
-    .card p {
-        color: #0f172a !important;
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #dbeafe !important;
     }
 
     .step-box {
         background: #eff6ff !important;
         border-left: 5px solid #38bdf8 !important;
-        color: #0f172a !important;
     }
 
     .warning-box {
         background: #fff7ed !important;
         border-left: 5px solid #f59e0b !important;
-        color: #0f172a !important;
     }
 
     .success-box {
         background: #ecfdf5 !important;
         border-left: 5px solid #10b981 !important;
+    }
+
+    .card *,
+    .step-box *,
+    .warning-box *,
+    .success-box *,
+    .dev-badge * {
         color: #0f172a !important;
     }
 
@@ -178,7 +179,7 @@ st.markdown("""
         color: #475569 !important;
     }
 
-    /* Sidebar visibility */
+    /* Sidebar */
     [data-testid="stSidebar"] {
         background-color: #e0f2fe !important;
         color: #0f172a !important;
@@ -186,27 +187,6 @@ st.markdown("""
 
     [data-testid="stSidebar"] * {
         color: #0f172a !important;
-    }
-
-    /* Inputs, multiselects, selectboxes, uploader */
-    input,
-    textarea,
-    select,
-    [data-baseweb="select"],
-    [data-baseweb="base-input"],
-    [data-baseweb="tag"],
-    [data-testid="stFileUploader"],
-    [data-testid="stTextInput"],
-    [data-testid="stSelectbox"],
-    [data-testid="stMultiSelect"],
-    [data-testid="stNumberInput"] {
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-    }
-
-    [data-baseweb="tag"] {
-        background-color: #bbf7d0 !important;
-        color: #064e3b !important;
     }
 
     /* Buttons */
@@ -237,18 +217,8 @@ st.markdown("""
     }
 
     /* Alerts */
-    [data-testid="stAlert"] {
-        color: #0f172a !important;
-    }
-
+    [data-testid="stAlert"],
     [data-testid="stAlert"] * {
-        color: #0f172a !important;
-    }
-
-    /* Tables/dataframes */
-    [data-testid="stDataFrame"],
-    [data-testid="stTable"] {
-        background-color: #ffffff !important;
         color: #0f172a !important;
     }
 
@@ -264,7 +234,108 @@ st.markdown("""
         color: #0f172a !important;
     }
 
-    /* Plotly chart container */
+    /* Inputs */
+    input,
+    textarea,
+    select,
+    [data-baseweb="input"],
+    [data-baseweb="base-input"],
+    [data-testid="stTextInput"],
+    [data-testid="stNumberInput"],
+    [data-testid="stFileUploader"] {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #64748b !important;
+        opacity: 1 !important;
+    }
+
+    /* Selectbox / Multiselect main box */
+    [data-baseweb="select"] {
+        background-color: transparent !important;
+        color: #0f172a !important;
+    }
+
+    [data-baseweb="select"] > div,
+    [data-baseweb="select"] [class*="control"],
+    [data-baseweb="select"] [class*="ValueContainer"],
+    [data-baseweb="select"] [class*="InputContainer"] {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border-color: #cbd5e1 !important;
+    }
+
+    [data-baseweb="select"] span,
+    [data-baseweb="select"] div,
+    [data-baseweb="select"] input {
+        color: #0f172a !important;
+    }
+
+    [data-baseweb="select"] svg {
+        fill: #0f172a !important;
+        color: #0f172a !important;
+    }
+
+    /* Multiselect selected tags */
+    [data-baseweb="tag"] {
+        background-color: #bbf7d0 !important;
+        color: #064e3b !important;
+    }
+
+    [data-baseweb="tag"] span,
+    [data-baseweb="tag"] svg {
+        color: #064e3b !important;
+        fill: #064e3b !important;
+    }
+
+    /* Dropdown popup/menu - important for mobile dark mode */
+    div[role="listbox"],
+    ul[role="listbox"],
+    [data-baseweb="menu"],
+    [data-baseweb="popover"],
+    [data-baseweb="popover"] > div,
+    [data-baseweb="popover"] ul,
+    [data-baseweb="popover"] li {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border-color: #cbd5e1 !important;
+    }
+
+    /* Dropdown options */
+    div[role="option"],
+    li[role="option"],
+    [data-baseweb="menu"] div,
+    [data-baseweb="menu"] li {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    div[role="option"] *,
+    li[role="option"] *,
+    [data-baseweb="menu"] * {
+        color: #0f172a !important;
+    }
+
+    /* Hover / highlighted option */
+    div[role="option"]:hover,
+    li[role="option"]:hover,
+    [data-baseweb="menu"] div:hover,
+    [data-baseweb="menu"] li:hover {
+        background-color: #e0f2fe !important;
+        color: #0f172a !important;
+    }
+
+    /* Tables/dataframes */
+    [data-testid="stDataFrame"],
+    [data-testid="stTable"] {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    /* Plotly container */
     .js-plotly-plot,
     .plot-container,
     .svg-container {
@@ -298,24 +369,12 @@ st.markdown("""
             border-radius: 0.75rem !important;
         }
 
-        h1 {
-            font-size: 1.55rem !important;
-        }
-
-        h2 {
-            font-size: 1.35rem !important;
-        }
-
-        h3 {
-            font-size: 1.15rem !important;
-        }
+        h1 { font-size: 1.55rem !important; }
+        h2 { font-size: 1.35rem !important; }
+        h3 { font-size: 1.15rem !important; }
 
         p, span, label, div {
             font-size: 0.92rem !important;
-        }
-
-        [data-testid="stMetric"] {
-            padding: 0.8rem !important;
         }
 
         div.stButton > button:first-child,
@@ -329,24 +388,35 @@ st.markdown("""
         .stApp,
         [data-testid="stAppViewContainer"],
         .main,
-        .block-container {
+        .block-container,
+        [data-testid="stSidebar"] {
             background-color: #f8fbff !important;
             color: #0f172a !important;
         }
 
-        .card,
-        .step-box,
-        .dev-badge,
-        [data-testid="stExpander"],
-        [data-testid="stMetric"] {
+        [data-baseweb="select"] > div,
+        [data-baseweb="select"] [class*="control"],
+        [data-baseweb="select"] [class*="ValueContainer"],
+        [data-baseweb="select"] [class*="InputContainer"],
+        div[role="listbox"],
+        ul[role="listbox"],
+        [data-baseweb="menu"],
+        [data-baseweb="popover"],
+        [data-baseweb="popover"] > div,
+        div[role="option"],
+        li[role="option"] {
+            background-color: #ffffff !important;
             color: #0f172a !important;
+            border-color: #cbd5e1 !important;
         }
 
-        .card *,
-        .step-box *,
-        .dev-badge *,
-        [data-testid="stExpander"] *,
-        [data-testid="stMetric"] * {
+        [data-baseweb="select"] *,
+        div[role="listbox"] *,
+        ul[role="listbox"] *,
+        [data-baseweb="menu"] *,
+        [data-baseweb="popover"] *,
+        div[role="option"] *,
+        li[role="option"] * {
             color: #0f172a !important;
         }
     }
